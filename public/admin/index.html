@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <style>
+    .admin-container { max-width: 1000px; margin: 24px auto; background: white; border-radius: 12px; padding: 16px; border: 1px solid #eef2f7; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+    input, select, textarea { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 10px; }
+    .tabbar { display: flex; gap: 8px; margin: 16px 0; }
+    .tabbar button { background: #f8fafc; border: 1px solid #e2e8f0; padding: 8px 12px; border-radius: 10px; cursor: pointer; }
+    .tabbar button.active { background: var(--color-primary); color: white; border-color: var(--color-primary); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border-bottom: 1px solid #e5e7eb; padding: 8px; text-align: left; }
+  </style>
+</head>
+<body class="ltr">
+  <div class="container">
+    <div class="admin-container">
+      <h2>Admin Dashboard</h2>
+      <div id="auth-section">
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <div style="flex:1; min-width:280px;">
+            <h3>Login</h3>
+            <div class="row">
+              <input id="login-email" placeholder="Email" />
+              <input id="login-password" type="password" placeholder="Password" />
+            </div>
+            <div style="margin-top:8px;"><button id="login-btn" class="btn">Login</button></div>
+          </div>
+          <div style="flex:1; min-width:280px;">
+            <h3>Register</h3>
+            <div class="row">
+              <input id="reg-email" placeholder="Email" />
+              <input id="reg-password" type="password" placeholder="Password" />
+            </div>
+            <div class="row" style="margin-top:8px;">
+              <input id="reg-store" placeholder="Store Name" />
+              <button id="reg-btn" class="btn">Create Store</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="app-section" style="display:none;">
+        <div class="tabbar">
+          <button data-tab="settings" class="active">Settings</button>
+          <button data-tab="categories">Categories</button>
+          <button data-tab="products">Products</button>
+          <button data-tab="banners">Banners</button>
+          <button data-tab="pages">Pages</button>
+          <button data-tab="analytics">Analytics</button>
+          <button data-tab="activity">Activity</button>
+          <button id="export-csv" class="btn">Export CSV</button>
+        </div>
+
+        <div id="tab-settings">
+          <h3>Store Settings</h3>
+          <div class="row">
+            <input id="s-name" placeholder="Store name" />
+            <input id="s-description" placeholder="Description" />
+          </div>
+          <div class="row">
+            <input id="s-logo" placeholder="Logo URL" />
+            <input id="s-cover" placeholder="Cover URL" />
+          </div>
+          <div class="row-3">
+            <input id="s-primary" placeholder="Primary color (#2563eb)" />
+            <input id="s-secondary" placeholder="Secondary color (#10b981)" />
+            <input id="s-whatsapp" placeholder="WhatsApp number (e.g. 15551234567)" />
+          </div>
+          <div class="row-3">
+            <select id="s-theme">
+              <option value="minimal">Minimal</option>
+              <option value="elegant">Elegant</option>
+              <option value="dark">Dark</option>
+            </select>
+            <select id="s-radius">
+              <option value="rounded">Rounded</option>
+              <option value="sharp">Sharp</option>
+            </select>
+            <select id="s-shadow">
+              <option value="0">Shadow 0</option>
+              <option value="1">Shadow 1</option>
+              <option value="2">Shadow 2</option>
+              <option value="3">Shadow 3</option>
+            </select>
+          </div>
+          <div class="row">
+            <select id="s-card-size">
+              <option value="sm">Card Small</option>
+              <option value="md">Card Medium</option>
+              <option value="lg">Card Large</option>
+            </select>
+            <select id="s-layout">
+              <option value="grid">Grid</option>
+              <option value="large">Large</option>
+            </select>
+          </div>
+          <h4>Social Links</h4>
+          <div class="row-3">
+            <input id="s-instagram" placeholder="Instagram URL" />
+            <input id="s-facebook" placeholder="Facebook URL" />
+            <input id="s-tiktok" placeholder="TikTok URL" />
+          </div>
+          <div class="row">
+            <input id="s-telegram" placeholder="Telegram URL" />
+            <input id="s-website" placeholder="Website URL" />
+          </div>
+          <h4>Location</h4>
+          <div class="row">
+            <input id="s-address" placeholder="Address text" />
+            <input id="s-maps" placeholder="Google Maps URL" />
+          </div>
+          <div style="margin-top:8px;">
+            <button id="s-save" class="btn">Save Settings</button>
+          </div>
+        </div>
+
+        <div id="tab-categories" style="display:none;">
+          <h3>Categories</h3>
+          <div class="row">
+            <input id="cat-name" placeholder="New category name" />
+            <button id="cat-add" class="btn">Add</button>
+          </div>
+          <table id="cat-table" style="margin-top:12px;">
+            <thead><tr><th>Name</th><th>Slug</th><th>Action</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="tab-products" style="display:none;">
+          <h3>Products</h3>
+          <div class="row">
+            <input id="p-name" placeholder="Name" />
+            <input id="p-category" placeholder="Category slug (optional)" />
+          </div>
+          <div class="row">
+            <input id="p-price" placeholder="Price original" />
+            <input id="p-discount" placeholder="Price discount (optional)" />
+          </div>
+          <div class="row">
+            <input id="p-image" placeholder="Image URL" />
+            <input id="p-gallery" placeholder="Gallery URLs (comma separated)" />
+          </div>
+          <div class="row">
+            <input id="p-short" placeholder="Short description" />
+            <input id="p-status" placeholder="Status (ACTIVE|HIDDEN|NEW|OUT_OF_STOCK|HOT)" />
+          </div>
+          <div>
+            <textarea id="p-desc" placeholder="Description"></textarea>
+          </div>
+          <div style="margin-top:8px;">
+            <label><input type="checkbox" id="p-discount-active" /> Discount active</label>
+            <button id="p-add" class="btn">Add Product</button>
+          </div>
+
+          <table id="prod-table" style="margin-top:12px;">
+            <thead><tr><th>Name</th><th>Slug</th><th>Price</th><th>Status</th><th>Action</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div id="tab-banners" style="display:none;">
+          <h3>Banners</h3>
+          <h4>Add New Banner</h4>
+          <div class="row">
+            <select id="b-type">
+              <option value="HERO">Hero Banner</option>
+              <option value="SLIDER">Slider</option>
+            </select>
+            <input id="b-position" type="number" placeholder="Position (0, 1, 2...)" value="0" />
+          </div>
+          <div class="row">
+            <input id="b-title" placeholder="Title" />
+            <input id="b-subtitle" placeholder="Subtitle" />
+          </div>
+          <div class="row">
+            <input id="b-cta-text" placeholder="CTA text (e.g. Shop Now)" />
+            <input id="b-cta-link" placeholder="CTA link URL" />
+          </div>
+          <div>
+            <input id="b-image" placeholder="Image URL" style="width:100%;" />
+          </div>
+          <div style="margin-top:8px;">
+            <button id="b-add" class="btn">Add Banner</button>
+          </div>
+          <h4 style="margin-top:24px;">Existing Banners</h4>
+          <div id="banners-list"></div>
+        </div>
+
+        <div id="tab-pages" style="display:none;">
+          <h3>Pages</h3>
+          <div>
+            <textarea id="pg-about" placeholder="About Store"></textarea>
+          </div>
+          <div>
+            <textarea id="pg-contact" placeholder="Contact"></textarea>
+          </div>
+          <div>
+            <textarea id="pg-return" placeholder="Return Policy"></textarea>
+          </div>
+          <div>
+            <textarea id="pg-terms" placeholder="Terms & Conditions"></textarea>
+          </div>
+          <div style="margin-top:8px;">
+            <button id="pg-save" class="btn">Save Pages</button>
+          </div>
+        </div>
+
+        <div id="tab-analytics" style="display:none;">
+          <h3>Analytics</h3>
+          <div id="analytics-content"></div>
+        </div>
+
+        <div id="tab-activity" style="display:none;">
+          <h3>Activity Log</h3>
+          <div id="activity-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/admin.js"></script>
+</body>
+</html>
+
+

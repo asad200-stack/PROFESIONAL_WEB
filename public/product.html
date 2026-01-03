@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link id="theme-css" rel="stylesheet" href="/themes/minimal.css" />
+</head>
+<body class="ltr">
+  <header class="store-header">
+    <div class="header-left">
+      <img class="store-logo" id="store-logo" src="" alt="logo" />
+      <div>
+        <div class="store-title" id="store-title">Store</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="lang-toggle" class="btn ghost">AR</button>
+      <a id="back-to-store" class="btn ghost" href="#">Back</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="product-page">
+      <div class="gallery">
+        <img id="gallery-main" class="gallery-main" src="" alt="product" />
+        <div id="thumbs" class="thumbs"></div>
+      </div>
+      <div class="product-info">
+        <h1 id="p-title">Product</h1>
+        <div id="p-category" class="info-row"></div>
+        <div id="p-status" class="info-row"></div>
+        <div id="p-price" class="info-row"></div>
+        <div class="divider"></div>
+        <div id="p-desc" class="desc"></div>
+        <div class="divider"></div>
+        <div class="info-row">
+          <button id="wa-btn" class="btn">WhatsApp Order</button>
+          <button id="wish-btn" class="btn secondary">♥</button>
+        </div>
+      </div>
+    </div>
+
+    <section style="margin-top:24px;">
+      <h3 data-i18n="similar_products">Similar Products</h3>
+      <div id="similar-grid" class="grid"></div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      const idx = parts.indexOf('store');
+      window.__STORE_SLUG__ = idx >= 0 ? parts[idx + 1] : 'demo';
+      window.__PRODUCT_SLUG__ = idx >= 0 ? parts[idx + 3] : '';
+    })();
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/product.js"></script>
+</body>
+</html>
+
+

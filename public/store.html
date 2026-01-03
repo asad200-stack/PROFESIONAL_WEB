@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Storefront</title>
+  <link rel="stylesheet" href="/css/base.css" />
+  <link id="theme-css" rel="stylesheet" href="/themes/minimal.css" />
+</head>
+<body class="ltr">
+  <header class="store-header">
+    <div class="header-left">
+      <img class="store-logo" id="store-logo" src="" alt="logo" />
+      <div>
+        <div class="store-title" id="store-title">Store</div>
+        <div id="store-desc" style="color:#64748b; font-size:12px;"></div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="lang-toggle" class="btn ghost">AR</button>
+      <a href="/admin" class="btn ghost">Admin</a>
+    </div>
+  </header>
+
+  <div class="container">
+    <section id="hero-section" class="hero" style="display:none;">
+      <img id="hero-image" alt="hero" />
+      <div class="overlay"></div>
+      <div class="content">
+        <h1 id="hero-title"></h1>
+        <p id="hero-subtitle"></p>
+        <a id="hero-cta" class="btn" href="#"></a>
+      </div>
+    </section>
+
+    <div class="toolbar">
+      <input id="search" class="search-input" data-i18n-placeholder="search_placeholder" placeholder="Search products..." />
+      <select id="category" class="select"></select>
+      <label for="sort" data-i18n="sort_label" style="font-weight:600;">Sort</label>
+      <select id="sort" class="select">
+        <option value="newest" data-i18n="sort_newest">Newest</option>
+        <option value="popular" data-i18n="sort_popular">Popular</option>
+        <option value="price-asc" data-i18n="sort_price_asc">Price ↑</option>
+        <option value="price-desc" data-i18n="sort_price_desc">Price ↓</option>
+      </select>
+      <button id="wishlist-button" class="btn secondary" data-i18n="wishlist">My Wishlist</button>
+    </div>
+
+    <section id="wishlist-section" style="display:none;">
+      <h3 data-i18n="wishlist">My Wishlist</h3>
+      <div id="wishlist-grid" class="grid"></div>
+    </section>
+
+    <section id="popular-section">
+      <h3 data-i18n="popular">Popular</h3>
+      <div id="popular-grid" class="grid"></div>
+    </section>
+
+    <section id="recently-viewed-section" style="display:none;">
+      <h3 data-i18n="recently_viewed">Recently Viewed</h3>
+      <div id="recently-viewed-grid" class="grid"></div>
+    </section>
+
+    <section>
+      <div id="products-grid" class="grid"></div>
+      <div id="no-results" style="margin:16px 0; display:none;" data-i18n="no_results">No results found</div>
+    </section>
+  </div>
+
+  <div class="footer">
+    <div id="footer-social"></div>
+    <div id="footer-address"></div>
+  </div>
+
+  <script>
+    window.__STORE_SLUG__ = (function () {
+      const parts = window.location.pathname.split('/').filter(Boolean);
+      const idx = parts.indexOf('store');
+      return idx >= 0 ? parts[idx + 1] : 'demo';
+    })();
+  </script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/i18n.js"></script>
+  <script src="/js/store.js"></script>
+</body>
+</html>
+
+

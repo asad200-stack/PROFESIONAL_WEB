@@ -1,0 +1,16 @@
+node_modules
+.env
+.env.*
+dist
+.cache
+.DS_Store
+.vscode
+*.log
+coverage
+tmp
+.vercel
+.railway
+prisma/*.db
+prisma/*.db-journal
+
+

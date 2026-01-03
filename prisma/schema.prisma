@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  stores       Store[]
+  activity     ActivityLog[]
+}
+
+model Store {
+  id              String       @id @default(cuid())
+  ownerId         String
+  owner           User         @relation(fields: [ownerId], references: [id])
+  name            String
+  slug            String       @unique
+  description     String?
+  logoUrl         String?
+  coverUrl        String?
+  primaryColor    String?
+  secondaryColor  String?
+  borderRadius    String?      // rounded | sharp
+  shadowLevel     Int?         // 0..3
+  cardSize        String?      // sm | md | lg
+  layoutMode      String?      // grid | large
+  theme           String       @default("minimal") // minimal | elegant | dark
+  whatsappNumber  String?
+  socialLinks     Json?
+  addressText     String?
+  googleMapsUrl   String?
+  aboutPage       String?
+  contactPage     String?
+  returnPolicyPage String?
+  termsPage       String?
+  viewsCount      Int          @default(0)
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  categories Category[]
+  products   Product[]
+  banners    Banner[]
+  activity   ActivityLog[]
+}
+
+model Category {
+  id      String @id @default(cuid())
+  storeId String
+  store   Store  @relation(fields: [storeId], references: [id])
+  name    String
+  slug    String
+  products Product[]
+
+  @@unique([storeId, slug])
+  @@unique([storeId, name])
+}
+
+model Product {
+  id               String    @id @default(cuid())
+  storeId          String
+  store            Store     @relation(fields: [storeId], references: [id])
+  categoryId       String?
+  category         Category? @relation(fields: [categoryId], references: [id])
+  name             String
+  slug             String
+  shortDescription String?
+  description      String?
+  priceOriginal    Float
+  priceDiscount    Float?
+  discountActive   Boolean   @default(false)
+  status           String    @default("ACTIVE") // ACTIVE | HIDDEN | NEW | OUT_OF_STOCK | HOT
+  imageMainUrl     String?
+  imageGallery     Json?
+  viewsCount       Int       @default(0)
+  whatsappClicks   Int       @default(0)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@unique([storeId, slug])
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  type      String   // HERO | SLIDER
+  title     String?
+  subtitle  String?
+  ctaText   String?
+  ctaLink   String?
+  imageUrl  String?
+  position  Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ActivityLog {
+  id        String   @id @default(cuid())
+  storeId   String
+  store     Store    @relation(fields: [storeId], references: [id])
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  action    String
+  details   Json?
+  createdAt DateTime @default(now())
+}
+
+

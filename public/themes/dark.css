@@ -1,0 +1,212 @@
+/* Dark Mode Theme */
+:root {
+  --color-bg: #0b1220;
+  --color-text: #e5e7eb;
+  --color-muted: #94a3b8;
+  --color-primary: #3b82f6;
+  --color-secondary: #10b981;
+  --card-radius: 12px;
+  --shadow-level: 1;
+  --card-padding: 16px;
+  --card-size: 1;
+}
+
+body {
+  background: #0b1220;
+  color: var(--color-text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+header.store-header {
+  background: #0f172a;
+  border-bottom: 1px solid #1f2937;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.product-card {
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: var(--card-radius);
+  padding: var(--card-padding);
+  transform: scale(var(--card-size));
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  position: relative;
+}
+
+.product-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--card-radius);
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.3) 0%, rgba(16, 185, 129, 0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.product-card:hover {
+  transform: scale(calc(var(--card-size) * 1.02));
+  border-color: #3b82f6;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+.product-card:hover::after {
+  opacity: 1;
+}
+
+.product-image {
+  border-radius: calc(var(--card-radius) - 4px);
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  border: 1px solid #1f2937;
+}
+
+.product-title {
+  color: #e5e7eb;
+  font-weight: 600;
+}
+
+.product-desc {
+  color: #94a3b8;
+}
+
+.discount-badge {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.price-old {
+  color: #64748b;
+  font-size: 0.9em;
+}
+
+.status-badge {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  border-radius: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+}
+
+.btn {
+  background: linear-gradient(135deg, var(--color-primary) 0%, #2563eb 100%);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-weight: 600;
+  transition: all 0.2s;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.5);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.btn.secondary {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, #059669 100%);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.btn.secondary:hover {
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 1px solid #1f2937;
+  color: var(--color-text);
+  box-shadow: none;
+}
+
+.btn.ghost:hover {
+  background: #1e293b;
+  border-color: #3b82f6;
+}
+
+.hero {
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  border: 1px solid #1f2937;
+}
+
+.hero .overlay {
+  background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 50%, transparent 100%);
+}
+
+.footer {
+  color: var(--color-muted);
+  border-top: 1px solid #1f2937;
+  padding-top: 24px;
+  margin-top: 48px;
+}
+
+.search-input, .select {
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  color: var(--color-text);
+  border-radius: 8px;
+}
+
+.search-input:focus, .select:focus {
+  border-color: #3b82f6;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input::placeholder {
+  color: #64748b;
+}
+
+.toolbar {
+  border-bottom: 1px solid #1f2937;
+  padding-bottom: 16px;
+  margin-bottom: 24px;
+}
+
+.product-page {
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.gallery, .product-info {
+  background: #0b1220;
+  border: 1px solid #1f2937;
+}
+
+.link {
+  color: #3b82f6;
+}
+
+.link:hover {
+  color: #60a5fa;
+}
+
+.wishlist-btn {
+  color: #ef4444;
+  transition: transform 0.2s;
+}
+
+.wishlist-btn:hover {
+  transform: scale(1.2);
+}
